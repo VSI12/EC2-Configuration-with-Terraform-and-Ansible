@@ -1,0 +1,30 @@
+- name: Setup Flask App on EC2
+  hosts: all
+  become: true
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/ec2-key.pem
+    ansible_user: ec2-user
+
+  tasks:
+    - name: Install required packages
+      yum:
+        name:
+          - python3
+          - python3-pip
+          - git
+        state: present
+
+    - name: Install Flask
+      pip:
+        name: flask
+
+    - name: Clone Flask app from GitHub
+      git:
+        repo: 'https://github.com/VSI12/AWS-Projects.git'
+        dest: /home/ec2-user/flask-app
+        version: main
+
+    - name: Run Flask app
+      shell: nohup python3 /home/ec2-user/flask-app/EC2/Configuring\ an\ EC2\ instance\ with\ Terraform\ and\ Ansible/Flask\ app/app.py &
+
+      

@@ -1,0 +1,10 @@
+#TERRAFORM FILES
+.terraform*
+*.tfstate*
+
+#PYTHON FILES
+.venv*
+__pycache__
+
+#KEY PAIR
+ec2-key.pem
